@@ -3,10 +3,10 @@ import React, { useState } from "react";
 function ServiceForm() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    room: "",
+    contact: "",          // backend expects contact
+    roomOrBooking: "",    // backend expects roomOrBooking
     serviceType: "",
-    priority: "",
+    priority: "Normal",
     message: "",
   });
 
@@ -18,21 +18,24 @@ function ServiceForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://192.168.1.3:5000/service-request", {
+      const res = await fetch("https://1646e539561a.ngrok-free.app/api/service-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Service request submitted!");
+        alert("✅ Service request submitted!");
         setFormData({
           name: "",
-          email: "",
-          room: "",
+          contact: "",
+          roomOrBooking: "",
           serviceType: "",
-          priority: "",
+          priority: "Normal",
           message: "",
         });
+      } else {
+        const errData = await res.json();
+        alert("❌ Error: " + errData.error);
       }
     } catch (err) {
       console.error("Error submitting service request:", err);
@@ -51,35 +54,39 @@ function ServiceForm() {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
-        />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Your Email"
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <input
           type="text"
-          name="room"
-          value={formData.room}
+          name="contact"
+          value={formData.contact}
           onChange={handleChange}
-          placeholder="Room Number"
+          placeholder="Email or Phone"
+          required
+          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+        />
+        <input
+          type="text"
+          name="roomOrBooking"
+          value={formData.roomOrBooking}
+          onChange={handleChange}
+          placeholder="Room or Booking ID"
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <select
           name="serviceType"
           value={formData.serviceType}
           onChange={handleChange}
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         >
           <option value="">Select Service Type</option>
           <option>Room Cleaning</option>
-          <option>Laundry</option>
-          <option>Food Delivery</option>
-          <option>Maintenance</option>
+          <option>Maintenance Issue</option>
+          <option>Food/Beverage Request</option>
+          <option>Complaint</option>
+          <option>General Inquiry</option>
         </select>
         <textarea
           rows="4"
@@ -87,6 +94,7 @@ function ServiceForm() {
           value={formData.message}
           onChange={handleChange}
           placeholder="Your Message"
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         ></textarea>
         <select
@@ -95,9 +103,8 @@ function ServiceForm() {
           onChange={handleChange}
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         >
-          <option value="">Select Priority</option>
-          <option>Urgent</option>
           <option>Normal</option>
+          <option>Urgent</option>
         </select>
         <button
           type="submit"

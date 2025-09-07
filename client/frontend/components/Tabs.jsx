@@ -4,7 +4,7 @@ import ServiceForm from "./ServiceForm";
 
 function Tabs({ activeTab, setActiveTab }) {
   return (
-    <div className="w-full md:w-1/2 bg-white rounded-b-2xl md:rounded-tr-2xl md:rounded-br-2xl flex flex-col items-center bg-[#F2F2FF]">
+    <div className="w-full md:w-1/2 bg-[#F2F2FF] rounded-b-2xl md:rounded-tr-2xl md:rounded-br-2xl flex flex-col items-center bg-[#F2F2FF]">
       {/* Tab Buttons */}
       <div className="flex justify-center py-6 w-full">
         <div className="relative bg-white p-1 rounded-xl flex w-80 shadow-sm">

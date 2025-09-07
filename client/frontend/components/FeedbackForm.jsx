@@ -16,14 +16,17 @@ function FeedbackForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://192.168.1.3:5000/feedback", {
+      const res = await fetch("https://1646e539561a.ngrok-free.app/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Feedback submitted!");
+        alert("✅ Feedback submitted!");
         setFormData({ name: "", email: "", message: "", rating: null });
+      } else {
+        const errData = await res.json();
+        alert("❌ Error: " + errData.error);
       }
     } catch (err) {
       console.error("Error submitting feedback:", err);
@@ -42,6 +45,7 @@ function FeedbackForm() {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <input
@@ -50,6 +54,7 @@ function FeedbackForm() {
           value={formData.email}
           onChange={handleChange}
           placeholder="Your Email"
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
 
@@ -82,6 +87,7 @@ function FeedbackForm() {
           value={formData.message}
           onChange={handleChange}
           placeholder="Your Message"
+          required
           className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         ></textarea>
         <button
