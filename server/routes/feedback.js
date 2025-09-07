@@ -14,4 +14,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const reviews = await Feedback.find();
+    console.log("Fetched reviews:", reviews);   // 👈 log to console
+    res.json(reviews);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
+
+
