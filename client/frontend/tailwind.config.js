@@ -1,11 +1,16 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
-  "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
-],
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sora: ["Sora", "sans-serif"],       // for headings / logo
+        dmsans: ["DM Sans", "sans-serif"],  // for body / buttons
+      },
+    },
   },
   plugins: [],
 }
+  
