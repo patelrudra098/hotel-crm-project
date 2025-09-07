@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const serviceRequestSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -7,11 +7,11 @@ const serviceRequestSchema = new mongoose.Schema({
   serviceType: {
     type: String,
     required: true,
-    enum: ['Room Cleaning', 'Maintenance Issue', 'Food/Beverage Request', 'Complaint', 'General Inquiry']
+    enum: ["Room Cleaning", "Maintenance Issue", "Food/Beverage Request", "Complaint", "General Inquiry"]
   },
   message: { type: String, required: true, trim: true },
-  priority: { type: String, enum: ['Normal', 'Urgent'], default: 'Normal' },
+  priority: { type: String, enum: ["Normal", "Urgent"], default: "Normal" },
   createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('ServiceRequest', serviceRequestSchema);
+module.exports = mongoose.model("ServiceRequest", serviceRequestSchema);
