@@ -1,3 +1,4 @@
+import Home from '../pages/Home'
 import './App.css'
 
 function App() {
@@ -5,12 +6,8 @@ function App() {
 
   return (
     <>
-      <div className="bg-red-500 text-white p-4">
-      <h1 className="text-4xl font-bold">
-        Hello from Vite + React + Tailwind!
-      </h1>
-    </div>
-    </>
+      <Home />
+      </>
   )
 }
 
