@@ -5,6 +5,6 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.send('API running...'));
 
-const PORT = 5000;
+const PORT = 6000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
