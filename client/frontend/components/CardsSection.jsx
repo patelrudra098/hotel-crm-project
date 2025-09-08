@@ -283,7 +283,7 @@ function CardsSection({ activeTab }) {
 
       {/* Footer */}
       <div className="text-center mt-16 text-gray-500 text-sm font-dmsans">
-        <p>© 2025 HotelNest – Crafted with care to enhance your stay.</p>
+        <p>© 2025 HotelNest – Crafted with care by rudra and mihir.</p>
       </div>
     </section>
   );
