@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaTools, FaUser, FaEnvelope, FaDoorOpen, FaSpinner } from "react-icons/fa";
+import { FaTools, FaUser, FaEnvelope, FaDoorOpen, FaSpinner, FaHeart, FaStar, FaQuoteLeft, FaClock, FaFlag } from "react-icons/fa";
 
 function CardsSection({ activeTab }) {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -17,7 +17,7 @@ function CardsSection({ activeTab }) {
   const fetchFeedbacks = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://1646e539561a.ngrok-free.app/api/feedback", {
+      const response = await fetch("https://hotel-crm-project.onrender.com/api/feedback", {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -57,7 +57,7 @@ function CardsSection({ activeTab }) {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://1646e539561a.ngrok-free.app/api/service-request", {
+      const response = await fetch("https://hotel-crm-project.onrender.com/api/service-request", {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -167,99 +167,164 @@ function CardsSection({ activeTab }) {
                   ? displayedData.map((item) => (
                       <div
                         key={item._id}
-                        className="backdrop-blur-lg bg-white rounded-2xl p-7 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-1 transition transform"
+                        className="relative group bg-gradient-to-br from-white via-white to-purple-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-purple-100 hover:border-purple-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden"
                       >
-                        <div className="flex items-center gap-3 mb-5">
-                          <FaUser className="text-[#5438DC] text-2xl" />
-                          <h3 className="font-semibold text-lg text-[#5438DC]">
-                            {item.name}
-                          </h3>
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-100 to-transparent rounded-bl-full opacity-50"></div>
+                        <div className="absolute -top-2 -left-2 w-8 h-8 bg-purple-200 rounded-full opacity-30 animate-pulse"></div>
+                        <div className="absolute bottom-4 right-4 w-6 h-6 bg-purple-300 rounded-full opacity-20 animate-pulse delay-1000"></div>
+                        
+                        {/* Quote Icon */}
+                        <div className="absolute top-6 right-6 text-purple-200 text-2xl">
+                          <FaQuoteLeft />
                         </div>
-                        <p className="text-gray-500 text-sm flex items-center gap-2 mb-4">
-                          <FaEnvelope /> {item.email}
-                        </p>
+                        
+                        {/* Header */}
+                        <div className="flex items-center gap-4 mb-6 relative z-10">
+                          <div className="w-14 h-14 bg-gradient-to-br from-[#5438DC] to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                            <FaUser className="text-white text-lg" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-xl text-gray-800 mb-1">
+                              {item.name}
+                            </h3>
+                            <p className="text-sm text-gray-500 flex items-center gap-2">
+                              <FaEnvelope className="text-xs" /> {item.email}
+                            </p>
+                          </div>
+                        </div>
                         
                         {/* Rating */}
                         {item.rating && (
-                          <div className="flex items-center gap-2 mb-4">
-                            <span className="text-sm font-semibold text-[#5438DC]">
-                              Rating: {item.rating}
-                            </span>
-                            <div className="flex">
-                              {[...Array(5)].map((_, i) => (
-                                <span key={i} className="text-yellow-400">
-                                  {i < item.rating ? "⭐" : "☆"}
-                                </span>
-                              ))}
+                          <div className="flex items-center justify-between mb-6 bg-yellow-50 rounded-2xl p-4 border border-yellow-100">
+                            <div className="flex items-center gap-2">
+                              <FaStar className="text-yellow-500" />
+                              <span className="font-semibold text-gray-800">Rating</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-2xl font-bold text-yellow-600">{item.rating}</span>
+                              <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                  <span key={i} className="text-yellow-400 text-lg">
+                                    {i < item.rating ? "⭐" : "☆"}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         )}
                         
-                        <p className="text-gray-800 text-base leading-relaxed italic">
-                          "{item.message}"
-                        </p>
+                        {/* Message */}
+                        <div className="relative mb-6">
+                          <p className="text-gray-700 text-base leading-relaxed italic font-medium bg-gray-50 p-4 rounded-2xl border-l-4 border-[#5438DC]">
+                            "{item.message}"
+                          </p>
+                        </div>
                         
-                        {/* Date */}
-                        <p className="text-xs text-gray-400 mt-3">
-                          {new Date(item.createdAt || item._id).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                          })}
-                        </p>
+                        {/* Footer */}
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-2 text-gray-500">
+                            <FaClock className="text-xs" />
+                            <span>
+                              {new Date(item.createdAt || item._id).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                              })}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1 text-red-400">
+                            <FaHeart className="text-xs animate-pulse" />
+                            <span className="text-xs font-medium">Thank you!</span>
+                          </div>
+                        </div>
                       </div>
                     ))
                   : displayedData.map((item) => (
                       <div
                         key={item._id}
-                        className="backdrop-blur-lg bg-white rounded-2xl p-7 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-1 transition transform"
+                        className="relative group bg-gradient-to-br from-white via-white to-blue-50 rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-blue-100 hover:border-blue-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden"
                       >
-                        <div className="flex items-center gap-3 mb-5">
-                          <FaTools className="text-[#5438DC] text-2xl" />
-                          <h3 className="font-semibold text-lg text-[#5438DC]">
-                            {item.serviceType}
-                          </h3>
+                        {/* Decorative Elements */}
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-100 to-transparent rounded-bl-full opacity-50"></div>
+                        <div className="absolute -top-1 -left-1 w-6 h-6 bg-blue-200 rounded-full opacity-40 animate-bounce"></div>
+                        <div className="absolute bottom-6 right-6 w-4 h-4 bg-blue-300 rounded-full opacity-30 animate-bounce delay-500"></div>
+                        
+                        {/* Service Type Header */}
+                        <div className="flex items-center gap-4 mb-6 relative z-10">
+                          <div className="w-16 h-16 bg-gradient-to-br from-[#5438DC] to-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-300">
+                            <FaTools className="text-white text-xl" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-xl text-gray-800 mb-2">
+                              {item.serviceType}
+                            </h3>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`px-3 py-1 text-xs font-bold rounded-full shadow-sm ${
+                                  item.priority === "Urgent"
+                                    ? "bg-red-100 text-red-700 border border-red-200"
+                                    : item.priority === "High"
+                                    ? "bg-orange-100 text-orange-700 border border-orange-200"
+                                    : "bg-green-100 text-green-700 border border-green-200"
+                                }`}
+                              >
+                                <FaFlag className="inline mr-1 text-xs" />
+                                {item.priority || "Normal"}
+                              </span>
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="space-y-2 text-gray-600 text-sm">
-                          <p className="flex items-center gap-2">
-                            <FaUser /> {item.name}
-                          </p>
-                          <p className="flex items-center gap-2">
-                            <FaEnvelope /> {item.contact}
-                          </p>
-                          <p className="flex items-center gap-2">
-                            <FaDoorOpen /> {item.roomOrBooking}
+                        {/* Guest Details */}
+                        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-5 mb-6 border border-gray-100">
+                          <div className="grid grid-cols-1 gap-3">
+                            <div className="flex items-center gap-3 text-gray-700">
+                              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <FaUser className="text-blue-600 text-sm" />
+                              </div>
+                              <span className="font-medium">{item.name}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-gray-700">
+                              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                <FaEnvelope className="text-green-600 text-sm" />
+                              </div>
+                              <span className="text-sm">{item.contact}</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-gray-700">
+                              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                <FaDoorOpen className="text-purple-600 text-sm" />
+                              </div>
+                              <span className="text-sm">{item.roomOrBooking}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Message */}
+                        <div className="mb-6">
+                          <p className="text-gray-700 text-base leading-relaxed bg-white p-5 rounded-2xl border-l-4 border-[#5438DC] shadow-sm italic">
+                            "{item.message}"
                           </p>
                         </div>
 
-                        {/* Priority Badge */}
-                        <div className="mt-4">
-                          <span
-                            className={`px-4 py-1 text-xs font-semibold rounded-full shadow-sm ${
-                              item.priority === "Urgent"
-                                ? "bg-red-100 text-red-600 border border-red-200"
-                                : item.priority === "High"
-                                ? "bg-orange-100 text-orange-600 border border-orange-200"
-                                : "bg-green-100 text-green-600 border border-green-200"
-                            }`}
-                          >
-                            {item.priority || "Normal"}
-                          </span>
+                        {/* Footer */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-gray-500 text-sm">
+                            <FaClock className="text-xs" />
+                            <span>
+                              {new Date(item.createdAt || item._id).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </span>
+                          </div>
+                          <div className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">
+                            In Progress
+                          </div>
                         </div>
-
-                        <p className="mt-5 text-gray-800 text-base leading-relaxed italic">
-                          "{item.message}"
-                        </p>
-
-                        {/* Date */}
-                        <p className="text-xs text-gray-400 mt-3">
-                          {new Date(item.createdAt || item._id).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                          })}
-                        </p>
                       </div>
                     ))}
               </div>
@@ -270,7 +335,7 @@ function CardsSection({ activeTab }) {
                   <button
                     onClick={loadMore}
                     disabled={loadingMore}
-                    className="bg-[#5438DC] hover:bg-[#4429c7] text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="bg-[#5438DC] hover:bg-[#432dc7] text-white px-10 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {loadingMore ? <LoadMoreSpinner /> : "Load More"}
                   </button>

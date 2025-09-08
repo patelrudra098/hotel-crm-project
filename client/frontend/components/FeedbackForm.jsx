@@ -1,5 +1,42 @@
 import React, { useState } from "react";
 
+// Modal Component
+function SuccessModal({ isOpen, onClose, message }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-mx-4 shadow-2xl">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg
+              className="w-8 h-8 text-green-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Success!</h3>
+          <p className="text-gray-600 mb-6">{message}</p>
+          <button
+            onClick={onClose}
+            className="bg-[#5438DC] text-white px-6 py-2 rounded-xl hover:bg-[#432dc7] transition font-medium"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FeedbackForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -7,6 +44,8 @@ function FeedbackForm() {
     message: "",
     rating: null,
   });
+
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,14 +55,17 @@ function FeedbackForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://1646e539561a.ngrok-free.app/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://hotel-crm-project.onrender.com/api/feedback",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       if (res.ok) {
-        alert("✅ Feedback submitted!");
         setFormData({ name: "", email: "", message: "", rating: null });
+        setShowModal(true);
       } else {
         const errData = await res.json();
         alert("❌ Error: " + errData.error);
@@ -31,6 +73,11 @@ function FeedbackForm() {
     } catch (err) {
       console.error("Error submitting feedback:", err);
     }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    window.location.reload(); // Reload the page to show updated feedback
   };
 
   return (
@@ -69,11 +116,12 @@ function FeedbackForm() {
                 onClick={() =>
                   setFormData((prev) => ({ ...prev, rating: num }))
                 }
-                className={`w-12 h-12 border rounded-xl flex items-center justify-center transition font-medium ${
-                  formData.rating === num
-                    ? "bg-[#5438DC] text-white"
-                    : "hover:bg-[#5438DC] hover:text-white text-gray-600"
-                }`}
+                className={`w-12 h-12 border rounded-xl flex items-center justify-center transition font-medium
+          ${
+            formData.rating === num
+              ? "bg-[#5438DC] text-white" // active (selected)
+              : "bg-white text-black hover:bg-[#5438DC] hover:text-white"
+          }`}
               >
                 {num}
               </button>
@@ -97,6 +145,12 @@ function FeedbackForm() {
           Submit Feedback
         </button>
       </form>
+
+      <SuccessModal
+        isOpen={showModal}
+        onClose={handleModalClose}
+        message="Your feedback has been submitted successfully! Thank you for sharing your experience with us."
+      />
     </>
   );
 }
