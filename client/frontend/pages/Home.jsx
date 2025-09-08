@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import LeftPanel from "../components/LeftPanel";
 import Tabs from "../components/Tabs";
-import CardsSection from "../components/CardsSection"; // 👈 new
+import CardsSection from "../components/CardsSection"; 
 
 function Home() {
   const [activeTab, setActiveTab] = useState("feedback");
@@ -17,7 +17,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 👇 New cards section */}
+      
       <CardsSection activeTab={activeTab} />
     </div>
   );
