@@ -89,7 +89,7 @@ function ServiceForm() {
           onChange={handleChange}
           placeholder="Your Name"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <input
           type="text"
@@ -98,7 +98,7 @@ function ServiceForm() {
           onChange={handleChange}
           placeholder="Email or Phone"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <input
           type="text"
@@ -106,14 +106,14 @@ function ServiceForm() {
           value={formData.roomOrBooking}
           onChange={handleChange}
           placeholder="Room or Booking ID"
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <select
           name="serviceType"
           value={formData.serviceType}
           onChange={handleChange}
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         >
           <option value="">Select Service Type</option>
           <option>Room Cleaning</option>
@@ -129,13 +129,13 @@ function ServiceForm() {
           onChange={handleChange}
           placeholder="Your Message"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         ></textarea>
         <select
           name="priority"
           value={formData.priority}
           onChange={handleChange}
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         >
           <option>Normal</option>
           <option>Urgent</option>

@@ -93,7 +93,7 @@ function FeedbackForm() {
           onChange={handleChange}
           placeholder="Your Name"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
         <input
           type="email"
@@ -102,7 +102,7 @@ function FeedbackForm() {
           onChange={handleChange}
           placeholder="Your Email"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="bg-white p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         />
 
         {/* Rating */}
@@ -116,7 +116,7 @@ function FeedbackForm() {
                 onClick={() =>
                   setFormData((prev) => ({ ...prev, rating: num }))
                 }
-                className={`w-12 h-12 border rounded-xl flex items-center justify-center transition font-medium
+                className={`w-12 h-12 rounded-xl flex items-center justify-center transition font-medium
           ${
             formData.rating === num
               ? "bg-[#5438DC] text-white" // active (selected)
@@ -136,7 +136,7 @@ function FeedbackForm() {
           onChange={handleChange}
           placeholder="Your Message"
           required
-          className="border p-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
+          className="p-3 bg-white rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5438DC]"
         ></textarea>
         <button
           type="submit"
