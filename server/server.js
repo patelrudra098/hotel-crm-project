@@ -8,7 +8,7 @@ const serviceRoutes = require("./routes/serviceRequest");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(express.json());
 
 // MongoDB connection
